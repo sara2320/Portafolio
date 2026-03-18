@@ -141,7 +141,11 @@ export default function Contact() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={submit} className="space-y-4">
+                <form
+                  action="https://formspree.io/f/mzdjyrgo"
+                  method="POST"
+                  className="space-y-4"
+                >
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs text-muted-foreground mb-2 block">
@@ -149,13 +153,12 @@ export default function Contact() {
                       </label>
                       <input
                         name="name"
-                        value={form.name}
-                        onChange={handle}
                         placeholder="Tu nombre"
                         className={inputCls}
                         required
                       />
                     </div>
+
                     <div>
                       <label className="text-xs text-muted-foreground mb-2 block">
                         Email *
@@ -163,56 +166,57 @@ export default function Contact() {
                       <input
                         name="email"
                         type="email"
-                        value={form.email}
-                        onChange={handle}
                         placeholder="tu@email.com"
                         className={inputCls}
                         required
                       />
                     </div>
                   </div>
+
                   <div>
                     <label className="text-xs text-muted-foreground mb-2 block">
                       Asunto
                     </label>
                     <input
                       name="subject"
-                      value={form.subject}
-                      onChange={handle}
                       placeholder="¿En qué puedo ayudarte?"
                       className={inputCls}
                     />
                   </div>
+
                   <div>
                     <label className="text-xs text-muted-foreground mb-2 block">
                       Mensaje *
                     </label>
                     <textarea
                       name="message"
-                      value={form.message}
-                      onChange={handle}
                       placeholder="Cuéntame sobre tu proyecto..."
                       rows={5}
                       className={`${inputCls} resize-none`}
                       required
                     />
                   </div>
+
+                  {/* Anti spam */}
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    style={{ display: "none" }}
+                  />
+
+                  {/* Redirección opcional */}
+                  <input
+                    type="hidden"
+                    name="_redirect"
+                    value="https://alexa-code.services/gracias"
+                  />
+
                   <button
                     type="submit"
-                    disabled={loading}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-neon-cyan text-dark-900 font-semibold text-sm hover:bg-neon-cyan/90 transition-all disabled:opacity-60 shadow-lg shadow-neon-cyan/20"
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-neon-cyan text-dark-900 font-semibold text-sm hover:bg-neon-cyan/90 transition-all shadow-lg shadow-neon-cyan/20"
                   >
-                    {loading ? (
-                      <>
-                        <span className="w-4 h-4 border-2 border-dark-900/30 border-t-dark-900 rounded-full animate-spin" />
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        Enviar mensaje
-                      </>
-                    )}
+                    <Send className="w-4 h-4" />
+                    Enviar mensaje
                   </button>
                 </form>
               )}
